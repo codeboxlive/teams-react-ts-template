@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import * as microsoftTeams from "@microsoft/teams-js";
 import { CODEBOX_LIVE_ORIGINS } from "@codeboxlive/extensions-core";
-import jsonFormat from "json-format";
 // Create new components and import them like this
 import Header from "./Header";
 
@@ -31,7 +30,7 @@ export default function App() {
             microsoftTeams.app
               .getContext()
               .then((context: microsoftTeams.app.Context) => {
-                setContextValue(jsonFormat(context));
+                setContextValue(JSON.stringify(context, null, 4));
               })
               .catch((error) => setContextValue(error.message));
           }}
@@ -43,7 +42,7 @@ export default function App() {
             microsoftTeams.pages
               .getConfig()
               .then((config: microsoftTeams.pages.InstanceConfig) => {
-                setContextValue(jsonFormat(config));
+                setContextValue(JSON.stringify(config, null, 4));
               })
               .catch((error) => setContextValue(error.message));
           }}
