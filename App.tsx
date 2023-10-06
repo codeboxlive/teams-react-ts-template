@@ -24,63 +24,65 @@ export default function App() {
   return (
     <>
       <Header />
-      <div>
-        <button
-          onClick={() => {
-            teamsJs.app
-              .getContext()
-              .then((context: teamsJs.app.Context) => {
-                setContextValue(JSON.stringify(context, null, 4));
-              })
-              .catch((error) => setContextValue(error.message));
-          }}
-        >
-          {"Get app context"}
-        </button>
-        <button
-          onClick={() => {
-            teamsJs.pages
-              .getConfig()
-              .then((config: teamsJs.pages.InstanceConfig) => {
-                setContextValue(JSON.stringify(config, null, 4));
-              })
-              .catch((error) => setContextValue(error.message));
-          }}
-        >
-          {"Get page config"}
-        </button>
-        {teamsJs.pages.currentApp.isSupported() && (
-          <>
-            <button
-              onClick={() => {
-                teamsJs.pages.currentApp
-                  .navigateToDefaultPage()
-                  .then(() => {
-                    setContextValue("navigateToDefaultPage succeeded");
-                  })
-                  .catch((error) => setContextValue(error.message));
-              }}
-            >
-              {"Nav to default"}
-            </button>
-            <button
-              onClick={() => {
-                teamsJs.pages.currentApp
-                  .navigateTo({
-                    pageId: "test",
-                    subPageId: "optional",
-                  })
-                  .then(() => {
-                    setContextValue("navigateTo succeeded");
-                  })
-                  .catch((error) => setContextValue(error.message));
-              }}
-            >
-              {"Nav to test"}
-            </button>
-          </>
-        )}
-      </div>
+      {contextValue !== "loading" && (
+        <div>
+          <button
+            onClick={() => {
+              teamsJs.app
+                .getContext()
+                .then((context: teamsJs.app.Context) => {
+                  setContextValue(JSON.stringify(context, null, 4));
+                })
+                .catch((error) => setContextValue(error.message));
+            }}
+          >
+            {"Get app context"}
+          </button>
+          <button
+            onClick={() => {
+              teamsJs.pages
+                .getConfig()
+                .then((config: teamsJs.pages.InstanceConfig) => {
+                  setContextValue(JSON.stringify(config, null, 4));
+                })
+                .catch((error) => setContextValue(error.message));
+            }}
+          >
+            {"Get page config"}
+          </button>
+          {teamsJs.pages.currentApp.isSupported() && (
+            <>
+              <button
+                onClick={() => {
+                  teamsJs.pages.currentApp
+                    .navigateToDefaultPage()
+                    .then(() => {
+                      setContextValue("navigateToDefaultPage succeeded");
+                    })
+                    .catch((error) => setContextValue(error.message));
+                }}
+              >
+                {"Nav to default"}
+              </button>
+              <button
+                onClick={() => {
+                  teamsJs.pages.currentApp
+                    .navigateTo({
+                      pageId: "test",
+                      subPageId: "optional",
+                    })
+                    .then(() => {
+                      setContextValue("navigateTo succeeded");
+                    })
+                    .catch((error) => setContextValue(error.message));
+                }}
+              >
+                {"Nav to test"}
+              </button>
+            </>
+          )}
+        </div>
+      )}
       <h3>{"Response:"}</h3>
       <div
         style={{
