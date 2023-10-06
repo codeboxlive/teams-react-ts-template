@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import * as microsoftTeams from "@microsoft/teams-js";
+import * as teamsJs from "@microsoft/teams-js";
 import { CODEBOX_LIVE_ORIGINS } from "@codeboxlive/extensions-core";
 // Create new components and import them like this
 import Header from "./Header";
@@ -13,7 +13,7 @@ export default function App() {
       return;
     }
     initRef.current = true;
-    microsoftTeams.app
+    teamsJs.app
       .initialize(CODEBOX_LIVE_ORIGINS)
       .then(() => {
         setContextValue("SDK initialized");
@@ -27,9 +27,9 @@ export default function App() {
       <div>
         <button
           onClick={() => {
-            microsoftTeams.app
+            teamsJs.app
               .getContext()
-              .then((context: microsoftTeams.app.Context) => {
+              .then((context: teamsJs.app.Context) => {
                 setContextValue(JSON.stringify(context, null, 4));
               })
               .catch((error) => setContextValue(error.message));
@@ -39,9 +39,9 @@ export default function App() {
         </button>
         <button
           onClick={() => {
-            microsoftTeams.pages
+            teamsJs.pages
               .getConfig()
-              .then((config: microsoftTeams.pages.InstanceConfig) => {
+              .then((config: teamsJs.pages.InstanceConfig) => {
                 setContextValue(JSON.stringify(config, null, 4));
               })
               .catch((error) => setContextValue(error.message));
@@ -49,6 +49,37 @@ export default function App() {
         >
           {"Get page config"}
         </button>
+        {teamsJs.pages.currentApp.isSupported() && (
+          <>
+            <button
+              onClick={() => {
+                teamsJs.pages.currentApp
+                  .navigateToDefaultPage()
+                  .then(() => {
+                    setContextValue("navigateToDefaultPage succeeded");
+                  })
+                  .catch((error) => setContextValue(error.message));
+              }}
+            >
+              {"Nav to default"}
+            </button>
+            <button
+              onClick={() => {
+                teamsJs.pages.currentApp
+                  .navigateTo({
+                    pageId: "test",
+                    subPageId: "optional",
+                  })
+                  .then(() => {
+                    setContextValue("navigateTo succeeded");
+                  })
+                  .catch((error) => setContextValue(error.message));
+              }}
+            >
+              {"Nav to test"}
+            </button>
+          </>
+        )}
       </div>
       <h3>{"Response:"}</h3>
       <div

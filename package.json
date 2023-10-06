@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@codeboxlive/extensions-core": "^0.3.3",
-    "@microsoft/teams-js": "^2.6.1",
+    "@microsoft/teams-js": "^2.15.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "^4.0.0"
