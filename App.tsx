@@ -3,6 +3,7 @@ import * as teamsJs from "@microsoft/teams-js";
 import { CODEBOX_LIVE_ORIGINS } from "@codeboxlive/extensions-core";
 // Create new components and import them like this
 import Header from "./Header";
+import { safeIsSupported } from "./utils";
 
 export default function App() {
   const initRef = useRef<boolean>(false);
@@ -50,7 +51,7 @@ export default function App() {
           >
             {"Get page config"}
           </button>
-          {teamsJs.pages.currentApp.isSupported() && (
+          {safeIsSupported(teamsJs.pages.currentApp.isSupported) && (
             <>
               <button
                 onClick={() => {
