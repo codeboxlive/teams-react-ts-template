@@ -7,8 +7,8 @@
     "build": "react-scripts build"
   },
   "dependencies": {
-    "@codeboxlive/extensions-core": "^0.4.1",
-    "@microsoft/teams-js": "^2.15.0",
+    "@codeboxlive/extensions-core": "^0.4.2",
+    "@microsoft/teams-js": "^2.17.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "^4.0.0"
